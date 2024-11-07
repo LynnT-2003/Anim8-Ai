@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <div className="">
-      <h1 className="text-3xl text-center">Create New</h1>
+    <div className="mt-12 mx-4">
+      {/* <h1 className="text-3xl text-center">Create New</h1> */}
       <div className="mx-24">
         <h1 className="text-2xl">Content</h1>
         <h1 className="mt-8">What is the topic of your video?</h1>
