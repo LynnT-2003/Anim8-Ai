@@ -45,8 +45,8 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-2xl mt-0 mb-2">
-            Application
+          <SidebarGroupLabel className="text-xl mt-0 mb-2">
+            Dashboard
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
