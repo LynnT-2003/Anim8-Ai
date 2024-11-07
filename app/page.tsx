@@ -1,4 +1,5 @@
 "use client";
+import axios from "axios";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
@@ -9,6 +10,23 @@ export default function Home() {
   const [content, setContent] = useState("");
   const [style, setStyle] = useState("");
   const [duration, setDuration] = useState(0);
+
+  const onCreateClickHandler = () => {
+    getVideoScript();
+  };
+
+  const getVideoScript = async () => {
+    const prompt =
+      "Write a script to generate 30 seconds video on topic: interesting historical story along with Ai image prompt in realistic format for each scene. Give me result in JSON format ONLY with imagePrompt and contextText as field";
+    console.log(prompt);
+    const result = await axios
+      .post("/api/get-video-script", {
+        prompt,
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
+  };
 
   useEffect(() => {
     console.log("Configuration has been updated to:", {
@@ -194,7 +212,11 @@ export default function Home() {
       </div>
 
       <div className="mx-24 mt-16 mb-16">
-        <Button variant="secondary" className="text-xl py-8 w-full">
+        <Button
+          variant="secondary"
+          className="text-xl py-8 w-full"
+          onClick={onCreateClickHandler}
+        >
           Create short video
         </Button>
       </div>
