@@ -29,7 +29,17 @@ const frameworks = [
 export default function Home() {
   const [openDuration, setOpenDuration] = useState(false);
 
+  const [content, setContent] = useState("");
+  const [style, setStyle] = useState("");
   const [duration, setDuration] = useState(0);
+
+  useEffect(() => {
+    console.log("Configuration has been updated to:", {
+      content,
+      style,
+      duration,
+    });
+  }, [content, style, duration]);
 
   return (
     <div className="mt-12 mx-4">
@@ -43,7 +53,14 @@ export default function Home() {
         <h1 className="text-2xl">Style</h1>
         <h1 className="mt-8 text-lg">What is the style of your video?</h1>
         <div className="flex space-x-4 mt-4">
-          <div className="grayscale hover:grayscale-0 w-[300px] h-[400px] bg-gray-600 rounded-xl overflow-hidden transition duration-300 ease-in-out">
+          <div
+            className={`${
+              style === "realistic" ? "grayscale-0" : "grayscale"
+            } grayscale hover:grayscale-0 w-[300px] h-[400px] bg-gray-600 rounded-xl overflow-hidden transition duration-300 ease-in-out`}
+            onClick={() => {
+              setStyle("realistic");
+            }}
+          >
             <img
               src="/styles/realistic.png"
               alt="comic"
@@ -53,7 +70,14 @@ export default function Home() {
               Realistic
             </h1>
           </div>
-          <div className="grayscale hover:grayscale-0 w-[300px] h-[400px] bg-gray-600 rounded-xl overflow-hidden transition duration-300 ease-in-out">
+          <div
+            className={`${
+              style === "comic" ? "grayscale-0" : "grayscale"
+            } grayscale hover:grayscale-0 w-[300px] h-[400px] bg-gray-600 rounded-xl overflow-hidden transition duration-300 ease-in-out`}
+            onClick={() => {
+              setStyle("comic");
+            }}
+          >
             <img
               src="/styles/comic.jpg"
               alt="comic"
@@ -63,7 +87,14 @@ export default function Home() {
               Comic
             </h1>
           </div>
-          <div className="grayscale hover:grayscale-0 w-[300px] h-[400px] bg-gray-600 rounded-xl overflow-hidden transition duration-300 ease-in-out">
+          <div
+            className={`${
+              style === "cartoon" ? "grayscale-0" : "grayscale"
+            } grayscale hover:grayscale-0 w-[300px] h-[400px] bg-gray-600 rounded-xl overflow-hidden transition duration-300 ease-in-out`}
+            onClick={() => {
+              setStyle("cartoon");
+            }}
+          >
             <img
               src="/styles/cartoon.jpg"
               alt="comic"
