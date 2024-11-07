@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import { Home, Search, Settings, Heart, LogOut } from "lucide-react";
 
 import {
   Sidebar,
@@ -19,24 +19,19 @@ const items = [
     icon: Home,
   },
   {
-    title: "Inbox",
+    title: "Saved",
     url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
+    icon: Heart,
   },
   {
     title: "Settings",
     url: "#",
     icon: Settings,
+  },
+  {
+    title: "Sign Out",
+    url: "#",
+    icon: LogOut,
   },
 ];
 
@@ -45,8 +40,19 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-xl mt-0 mb-2">
-            Dashboard
+          <div className="flex items-center mb-8">
+            <img
+              src="/logo/logo1.webp"
+              alt="Anim8"
+              className="w-10 h-10 rounded-full object-cover opacity-88"
+            />
+            <SidebarGroupLabel className="text-xl opacity-50 mt-0 ml-2">
+              Anim8 Dashboard
+            </SidebarGroupLabel>
+          </div>
+
+          <SidebarGroupLabel className="text-xl text-white mt-0 mb-0">
+            Profile Settings
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
