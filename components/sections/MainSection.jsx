@@ -11,6 +11,8 @@ const MainSection = () => {
   const [style, setStyle] = useState("");
   const [duration, setDuration] = useState(0);
   const [script, setScript] = useState();
+  const [imagePrompts, setImagePrompts] = useState();
+  const [contextTexts, setContextTexts] = useState();
 
   const onCreateClickHandler = () => {
     getVideoScript();
@@ -18,16 +20,25 @@ const MainSection = () => {
 
   const getVideoScript = async () => {
     const prompt =
-      "Write a script to generate 30 seconds video on topic: interesting historical story along with Ai image prompt in realistic format for each scene. Give me result in JSON format ONLY with imagePrompt and contextText as field";
+      "Write a script to generate a 30-second video on the topic: interesting historical story along with AI image prompt in realistic format for each scene. Give me result in JSON format ONLY with imagePrompt and contextText as fields.";
     console.log(prompt);
-    const result = await axios
-      .post("/api/get-video-script", {
+
+    try {
+      const res = await axios.post("/api/get-video-script", {
         prompt,
-      })
-      .then((res) => {
-        setScript(res.data);
-        console.log(res.data);
       });
+
+      const imagePrompts = res.data.result.map((item) => item.imagePrompt);
+      const contextTexts = res.data.result.map((item) => item.contextText);
+
+      setScript(res.data);
+      setImagePrompts(imagePrompts);
+      setContextTexts(contextTexts);
+
+      console.log(res.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -41,6 +52,14 @@ const MainSection = () => {
   useEffect(() => {
     console.log("Script", script);
   }, [script]);
+
+  useEffect(() => {
+    console.log("Image Prompts:", imagePrompts);
+  }, [imagePrompts]);
+
+  useEffect(() => {
+    console.log("Context Texts:", contextTexts);
+  }, [contextTexts]);
 
   return (
     <div className="mt-16 mx-4 flex flex-col items-center justify-center">
