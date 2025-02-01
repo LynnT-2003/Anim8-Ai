@@ -4,7 +4,14 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
-import { RemotionRoot } from "../Slideshow";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
 import PlayerDialog from "../PlayerDialog";
 
 const MainSection = () => {
@@ -12,11 +19,15 @@ const MainSection = () => {
     "/content/fantasy.jpg",
     "/content/historical.jpg",
     "/content/motivational.jpg",
+    "/content/fantasy.jpg",
+    "/content/historical.jpg",
+    "/content/motivational.jpg",
   ];
 
   const router = useRouter();
   const [openDuration, setOpenDuration] = useState(false);
-
+  const [showimages, setShowimages] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
   const [content, setContent] = useState("");
   const [style, setStyle] = useState("");
   const [duration, setDuration] = useState(0);
@@ -285,32 +296,99 @@ const MainSection = () => {
   return (
     <div className="mt-4 mx-4 flex flex-col items-center justify-center">
       {loading && <h1>Loading...</h1>}
-      {!loading && images.length > 0 && (
-        <div className="flex flex-wrap gap-[1%] items-center justify-center">
-          {images.map((image, index) => (
-            <div
-              key={index}
-              className="relative w-[30%] 2xl:w-[22%] mb-[1%] group"
-            >
-              <img
-                src={image}
-                alt={`Generated image ${index + 1}`}
-                className="w-full h-auto"
-              />
-              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:cursor-pointer">
-                <p className="text-white text-center px-10">
-                  {contextTexts[index]}
-                </p>
-              </div>
-            </div>
-          ))}
 
-          <PlayerDialog images={images} />
+      {!loading && images.length > 0 && (
+        <div className="flex mt-12 flex-col gap-[1%] items-center justify-center">
+          {showimages && !showVideo && (
+            <div className="w-full flex flex-wrap items-center justify-center gap-5">
+              {images.map((image, index) => (
+                <div
+                  key={index}
+                  className="relative w-[30%] 2xl:w-[22%] mb-[1%] group"
+                >
+                  <img
+                    src={image}
+                    alt={`Generated image ${index + 1}`}
+                    className="w-full h-auto"
+                  />
+                  <div className="hidden md:flex absolute inset-0 items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:cursor-pointer">
+                    <p className="text-white text-center px-10">
+                      {contextTexts[index]}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {!showimages && !showVideo && (
+            <Carousel className="w-[500px]">
+              <CarouselContent>
+                {images.map((image, index) => (
+                  <CarouselItem key={index}>
+                    <img
+                      src={image}
+                      alt={`Generated image ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          )}
+
+          {showVideo && <PlayerDialog images={images} className="" />}
+
+          <div className="flex items-center justify-center space-x-4">
+            {!showVideo && (
+              <Button
+                variant="outline"
+                className="mt-4"
+                onClick={() => {
+                  setShowimages((prev) => !prev); // Toggles between true and false
+                }}
+              >
+                {showimages ? "Hide Generated Images" : "View Generated Images"}
+                {/* Changes text based on state */}
+              </Button>
+            )}
+
+            <Button
+              className="mt-4"
+              onClick={() => {
+                setShowVideo((prev) => !prev); // Toggles between true and false
+              }}
+            >
+              {showVideo ? "Hide Video" : "Show Video"}
+            </Button>
+          </div>
         </div>
       )}
+
       {!loading && images.length === 0 && (
-        <div className="mt-0 mx-4 flex flex-col items-center justify-center">
+        <div className="flex mt-0 mx-4 flex-col items-center justify-center">
           {/* <h1 className="text-3xl text-center">Create New</h1> */}
+
+          <div className="hidden items-center justify-center h-screen">
+            <Carousel className="flex items-center justify-center w-[300px] h-[450px] bg-blue-500">
+              <CarouselContent>
+                {imagelistDemo.map((image, index) => (
+                  <CarouselItem key={index}>
+                    <img
+                      src={image}
+                      alt={`Generated image ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          </div>
+
           <div className="mx-24">
             <h1 className="text-3xl font-bold">Content</h1>
             <h1 className="mt-2">What is the topic of your video?</h1>
@@ -488,20 +566,20 @@ const MainSection = () => {
           <div className="flex space-x-4 mx-24 mt-16 mb-16">
             <Button
               variant="secondary"
-              className="text-xl py-8 w-full"
+              className="text-xl px-8 py-8 w-full"
               onClick={() => {
                 handleSubmitClick();
               }}
             >
-              Generate Images
+              Generate Content
             </Button>
-            <Button
+            {/* <Button
               variant="secondary"
               className="text-xl py-8 w-full"
               onClick={onCreateClickHandler}
             >
               Create Short Video
-            </Button>
+            </Button> */}
           </div>
         </div>
       )}

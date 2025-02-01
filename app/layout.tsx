@@ -43,7 +43,10 @@ export default function RootLayout({
             </div>{" "}
             <main className="w-screen relative">
               <div className="w-full flex items-center justify-between my-5 px-8">
-                <HelpCircleIcon size={24} className="hover:cursor-pointer" />
+                <HelpCircleIcon
+                  size={24}
+                  className="hidden md:block hover:cursor-pointer"
+                />
                 <h1 className="text-xl hover:cursor-pointer">
                   Anim8 by Lynn 🚀
                 </h1>
