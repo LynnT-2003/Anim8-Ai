@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
+import { HelpCircleIcon } from "lucide-react";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,13 +31,28 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
       >
-        <SidebarProvider>
-          <AppSidebar />
-          <main className="w-screen">
+        <div>
+          <SidebarProvider>
+            <AppSidebar />
+            {/* <main className="w-screen">
             <SidebarTrigger className="mt-6" />
             {children}
-          </main>
-        </SidebarProvider>
+          </main> */}
+            <div className="fixed mt-5 ml-4 hover:cursor-pointer transition-opacity duration-300 ease-in-out z-50">
+              <SidebarTrigger className="absolute top-0 left-0" />
+            </div>{" "}
+            <main className="w-screen relative">
+              <div className="w-full flex items-center justify-between my-5 px-8">
+                <HelpCircleIcon size={24} className="hover:cursor-pointer" />
+                <h1 className="text-xl hover:cursor-pointer">
+                  Anim8 by Lynn 🚀
+                </h1>
+                <h1 className="hover:cursor-pointer">Lynn Thit</h1>
+              </div>
+              {children}
+            </main>
+          </SidebarProvider>
+        </div>
       </body>
     </html>
   );

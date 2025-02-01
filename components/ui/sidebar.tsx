@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { VariantProps, cva } from "class-variance-authority";
-import { PanelLeft } from "lucide-react";
+import { Menu } from "lucide-react";
 
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
@@ -263,23 +263,27 @@ const SidebarTrigger = React.forwardRef<
   React.ElementRef<typeof Button>,
   React.ComponentProps<typeof Button>
 >(({ className, onClick, ...props }, ref) => {
-  const { toggleSidebar } = useSidebar();
+  const { state, toggleSidebar } = useSidebar();
 
   return (
-    <div className="mt-2 ml-4 mr-4 relative">
-      <div className="flex items-center justify-between">
-        <PanelLeft
-          className="cursor-pointer hover:bg-gray-700 p-1 rounded-lg"
-          size={32}
+    <div className="pl-3 mr-2  top-0 z-50 text-white">
+      <div className="flex items-center sticky">
+        <Menu
+          // className="cursor-pointer hover:bg-gray-700 p-1 rounded-lg"
+          size={24}
           data-sidebar="trigger"
           onClick={() => {
             toggleSidebar();
           }}
         />
-        <h1 className="absolute left-1/2 transform -translate-x-1/2 text-xl font-sans">
-          Anim8 by Lynn
-        </h1>
-        <h1>Lynn Thit</h1>
+        {/* <img
+          src="/logo.png"
+          alt="logo"
+          className="h-[32px]"
+          onClick={() => {
+            toggleSidebar();
+          }}
+        /> */}
       </div>
     </div>
   );
