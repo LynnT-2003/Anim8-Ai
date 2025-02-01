@@ -19,7 +19,6 @@
     "@remotion/bundler": "^4.0.257",
     "@remotion/cli": "^4.0.257",
     "@remotion/player": "^4.0.257",
-    "@remotion/renderer": "^4.0.257",
     "axios": "^1.7.7",
     "class-variance-authority": "^0.7.0",
     "cloudinary": "^2.5.1",
